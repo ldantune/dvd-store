@@ -7,7 +7,7 @@ using DvdStore.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<RentalStoreDbContext>(options =>
+builder.Services.AddDbContext<DvdStoreDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
@@ -38,3 +38,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program
+{
+    protected Program() { }
+}

@@ -3,9 +3,9 @@ using DvdStore.Domain.Entities;
 
 
 namespace DvdStore.Infrastructure.DataAccess;
-public class RentalStoreDbContext : DbContext
+public class DvdStoreDbContext : DbContext
 {
-    public RentalStoreDbContext(DbContextOptions<RentalStoreDbContext> options) : base(options)
+    public DvdStoreDbContext(DbContextOptions<DvdStoreDbContext> options) : base(options)
     { }
 
     public DbSet<Category> Categories { get; set; }

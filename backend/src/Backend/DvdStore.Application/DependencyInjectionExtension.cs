@@ -1,7 +1,11 @@
 ﻿using DvdStore.Application.Services.AutoMapper;
-using DvdStore.Application.UseCases.Categories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using DvdStore.Application.UseCases.Categories.Get;
+using DvdStore.Application.UseCases.Categories.GetById;
+using DvdStore.Application.UseCases.Categories.Register;
+using DvdStore.Application.UseCases.Categories.Update;
+using DvdStore.Application.UseCases.Categories.Delete;
 
 
 namespace DvdStore.Application;
@@ -25,5 +29,8 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IGetCategoriesUseCase, GetCategoriesUseCase>();
         services.AddScoped<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
+        services.AddScoped<IRegisterCategoryUseCase, RegisterCategoryUseCase>();
+        services.AddScoped<IUpdateCategoryUseCase, UpdateCategoryUseCase>();
+        services.AddScoped<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
     }
 }

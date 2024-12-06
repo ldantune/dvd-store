@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using DvdStore.Communication.Responses;
 using DvdStore.Domain.Repositories.Category;
-using DvdStore.Exceptions.ExceptionBase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DvdStore.Application.UseCases.Categories;
+namespace DvdStore.Application.UseCases.Categories.Get;
 public class GetCategoriesUseCase : IGetCategoriesUseCase
 {
     private readonly IMapper _mapper;

@@ -4,15 +4,27 @@ using DvdStore.Domain.Entities;
 using Npgsql;
 
 namespace DvdStore.Infrastructure.DataAccess.Repositories;
-public class CategoryRepository : ICategoryRepository
+public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyRepository, ICategoryUpdateOnlyRepository
 {
     private readonly string _connectionString;
+    private readonly DvdStoreDbContext _dbContext;
 
     // Injeção de dependência para pegar a connection string do arquivo de configuração
-    public CategoryRepository(IConfiguration configuration)
+    public CategoryRepository(DvdStoreDbContext context, IConfiguration configuration)
     {
+        _dbContext = context;
         _connectionString = configuration.GetConnectionString("DefaultConnection")!;
     }
+
+    public async Task Add(Category category) => await _dbContext.Categories.AddAsync(category);
+
+    public async Task Delete(int id)
+    {
+        var category = await _dbContext.Categories.FindAsync(id);
+
+        _dbContext.Categories.Remove(category!);
+    }
+
 
     // Método para pegar todas as categorias
     public async Task<IList<Category>> GetCategoriesAsync()
@@ -45,7 +57,7 @@ public class CategoryRepository : ICategoryRepository
     // Método para pegar uma categoria pelo id
     public async Task<Category> GetCategoryByIdAsync(int categoryId)
     {
-        Category category = null;
+        Category category = null!;
 
         using (var connection = new NpgsqlConnection(_connectionString))
         {
@@ -71,4 +83,7 @@ public class CategoryRepository : ICategoryRepository
 
         return category!;
     }
+
+    public void Update(Category category) => _dbContext.Categories.Update(category);
+    
 }

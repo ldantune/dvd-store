@@ -19,5 +19,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ICategoryWriteOnlyRepository, CategoryRepository>();
+        services.AddScoped<ICategoryUpdateOnlyRepository, CategoryRepository>();
     }
 }
