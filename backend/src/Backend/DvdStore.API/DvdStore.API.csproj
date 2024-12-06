@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\DvdStore.Communication\DvdStore.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\DvdStore.Exceptions\DvdStore.Exceptions.csproj" />
+    <ProjectReference Include="..\DvdStore.Application\DvdStore.Application.csproj" />
+    <ProjectReference Include="..\DvdStore.Infrastructure\DvdStore.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
