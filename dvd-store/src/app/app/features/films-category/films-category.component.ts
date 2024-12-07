@@ -26,7 +26,6 @@ export class FilmsCategoryComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.categoryId = Number(params.get('id'));
       this.getFilmsByCategoriId(this.categoryId);
-      console.log('Category ID:', this.categoryId);
     });
   }
 
@@ -36,7 +35,6 @@ export class FilmsCategoryComponent implements OnInit {
       (response: any) => {
         if (response) {
           this.moviesCategory = response.moviesByCategory;
-          console.log(this.moviesCategory)
         } else {
           console.error('O retorno não contém um array de categorias.');
         }
