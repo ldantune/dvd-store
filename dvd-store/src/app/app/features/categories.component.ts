@@ -15,7 +15,10 @@ import { MatTableModule } from '@angular/material/table';
 export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService, private router: Router) {}
+  constructor(
+    private categoryService: CategoryService, 
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Agora, o subscribe vai funcionar corretamente com o Observable
@@ -30,7 +33,6 @@ export class CategoriesComponent implements OnInit {
     this.categories = [];
     this.categoryService.getCategories().subscribe(
       (response: any) => {
-
         if (response && Array.isArray(response.categories)) {
         this.categories = response.categories;
       } else {

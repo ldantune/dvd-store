@@ -1,0 +1,27 @@
+/* src/app/home/home.component.css */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.home-card {
+  margin: 10px;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  margin-right: 10px;
+}

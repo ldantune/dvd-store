@@ -6,6 +6,7 @@ using DvdStore.Application.UseCases.Categories.GetById;
 using DvdStore.Application.UseCases.Categories.Register;
 using DvdStore.Application.UseCases.Categories.Update;
 using DvdStore.Application.UseCases.Categories.Delete;
+using DvdStore.Application.UseCases.Films.FilmCategory;
 
 
 namespace DvdStore.Application;
@@ -32,5 +33,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterCategoryUseCase, RegisterCategoryUseCase>();
         services.AddScoped<IUpdateCategoryUseCase, UpdateCategoryUseCase>();
         services.AddScoped<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
+        services.AddScoped<IFilmCategoryUseCase, FilmCategoryUseCase>();
     }
 }

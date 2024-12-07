@@ -19,5 +19,6 @@ public class AutoMapping : Profile
     private void DomainToResponse()
     {
         CreateMap<Domain.Entities.Category, ResponseCategoryJson>();
+        CreateMap<Domain.Entities.MovieByCategory, ResponseMovieByCategoryJson>();
     }
 }
