@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from './app/shared/template/footer/footer.component';
-import { HeaderComponent } from './app/shared/template/header/header.component';
-import { MenuComponent } from './app/shared/template/menu/menu.component';
-import { ContentComponent } from './app/shared/template/content/content.component';
+import { FooterComponent } from './shared/template/footer/footer.component';
+import { HeaderComponent } from './shared/template/header/header.component';
+import { MenuComponent } from './shared/template/menu/menu.component';
+import { ContentComponent } from './shared/template/content/content.component';
+
 
 
 @Component({

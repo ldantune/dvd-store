@@ -44,7 +44,7 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
                         {
                             CategoryId = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            LastUpdate = reader.GetDateTime(2)
+                            LastUpdate =reader.GetDateTime(2).ToString("dd/MM/yyyy HH:mm:ss", new System.Globalization.CultureInfo("pt-BR"))
                         });
                     }
                 }
@@ -74,7 +74,7 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
                         {
                             CategoryId = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            LastUpdate = reader.GetDateTime(2)
+                            LastUpdate = reader.GetDateTime(2).ToString("dd/MM/yyyy HH:mm:ss", new System.Globalization.CultureInfo("pt-BR"))
                         };
                     }
                 }

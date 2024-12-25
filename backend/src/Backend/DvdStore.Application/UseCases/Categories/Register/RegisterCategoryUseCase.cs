@@ -25,7 +25,7 @@ public class RegisterCategoryUseCase : IRegisterCategoryUseCase
 
         var category = _mapper.Map<Domain.Entities.Category>(request);
 
-        category.LastUpdate = DateTime.Now;
+        category.LastUpdate = DateTime.Now.ToString();
 
         await _repository.Add(category);
 
