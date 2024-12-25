@@ -12,7 +12,7 @@ public class FilmController : ControllerBase
     [HttpGet]
     [Route("category/{id}")]
     [ProducesResponseType(typeof(ResponseMoviesByCategoryJson), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(
         [FromServices] IFilmCategoryUseCase useCase,
         [FromRoute] int id)

@@ -8,27 +8,35 @@ import { Category } from '../app/core/models/Category';
 import { CategoryService } from '../app/core/services/category.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HeaderTitleService } from '../app/core/services/header-title.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ 
+  imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
     MatListModule,
-    MatIconModule],
+    MatIconModule,
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService, private router: Router) {}
+  constructor(
+    private categoryService: CategoryService,
+    private router: Router,
+    private headerTitleService: HeaderTitleService
+  ) {}
 
   ngOnInit(): void {
     // Agora, o subscribe vai funcionar corretamente com o Observable
     this.getCategories();
+    const categoryTitle = "Categorias"
+    this.headerTitleService.setTitle('Lista de Categorias');
   }
 
   private getCategories(): void {
@@ -36,10 +44,10 @@ export class HomeComponent implements OnInit{
     this.categoryService.getCategories().subscribe(
       (response: any) => {
         if (response && Array.isArray(response.categories)) {
-        this.categories = response.categories;
-      } else {
-        console.error("O retorno não contém um array de categorias.");
-      }
+          this.categories = response.categories;
+        } else {
+          console.error('O retorno não contém um array de categorias.');
+        }
       },
       (error: any) => {
         console.error(error);
@@ -50,5 +58,4 @@ export class HomeComponent implements OnInit{
   navigateToFilmsCategory(categoryId: number): void {
     this.router.navigate(['/films-category', categoryId]);
   }
-
 }

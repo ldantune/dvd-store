@@ -8,7 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, MatTableModule ],
+  imports: [CommonModule, MatTableModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
@@ -16,7 +16,7 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
 
   constructor(
-    private categoryService: CategoryService, 
+    private categoryService: CategoryService,
     private router: Router
   ) {}
 
@@ -33,11 +33,12 @@ export class CategoriesComponent implements OnInit {
     this.categories = [];
     this.categoryService.getCategories().subscribe(
       (response: any) => {
+        console.log(response);
         if (response && Array.isArray(response.categories)) {
-        this.categories = response.categories;
-      } else {
-        console.error("O retorno não contém um array de categorias.");
-      }
+          this.categories = response.categories;
+        } else {
+          console.error('O retorno não contém um array de categorias.');
+        }
       },
       (error: any) => {
         console.error(error);

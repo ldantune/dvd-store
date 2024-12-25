@@ -5,6 +5,7 @@ import { MovieCategory } from '../../core/models/MovieCategory';
 import { FilmCategoryService } from '../../core/services/film-category.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { HeaderTitleService } from '../../core/services/header-title.service';
 
 @Component({
   selector: 'app-films-category',
@@ -15,9 +16,11 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class FilmsCategoryComponent implements OnInit {
   categoryId: number | null = null;
+  categoryTitle: string = '';
   moviesCategory: MovieCategory[] = [];
 
   constructor(
+    private headerTitleService: HeaderTitleService,
     private route: ActivatedRoute,
     private filmCategoryService: FilmCategoryService
   ) {}
@@ -25,6 +28,7 @@ export class FilmsCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.categoryId = Number(params.get('id'));
+      //this.headerTitleService.setTitle(this.categoryTitle);
       this.getFilmsByCategoriId(this.categoryId);
     });
   }
@@ -33,8 +37,10 @@ export class FilmsCategoryComponent implements OnInit {
     this.moviesCategory = [];
     this.filmCategoryService.getFilmsByCategoryId(category_id).subscribe(
       (response: any) => {
-        if (response) {
+        if (response && Array.isArray(response.moviesByCategory)) {
           this.moviesCategory = response.moviesByCategory;
+          let nameCategory = this.moviesCategory[0].nameCategory;
+          this.headerTitleService.setTitle(nameCategory);
         } else {
           console.error('O retorno não contém um array de categorias.');
         }
