@@ -1,14 +1,10 @@
 import { Routes } from '@angular/router';
 import { FilmsCategoryComponent } from './features/films-category/films-category.component';
-import { AddCategoryComponent } from './features/categories/add-category.component';
 import { HomeComponent } from './features/home/home.component';
-import { CategoriesComponent } from './features/categories.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Rota inicial agora direciona para o componente Home
   { path: 'home', component: HomeComponent }, // Rota para o componente Home
-  { path: 'categories', component: CategoriesComponent }, // Rota principal para listar categorias
-  { path: 'categories/add', component: AddCategoryComponent }, // Rota para adicionar categoria
   { path: 'films-category/:id', component: FilmsCategoryComponent },
   {
     path: 'categorias',

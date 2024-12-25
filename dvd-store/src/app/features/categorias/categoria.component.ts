@@ -50,9 +50,7 @@ export class CategoriaComponent implements OnInit, AfterViewInit {
     this.categoriaService.getAll().subscribe(
       (response: any) => {
         if (response && Array.isArray(response.categories)) {
-          console.log(response.categories);
           this.data = new MatTableDataSource<Category>(response.categories);
-          this.notificationService.showSuccess('Categorias carregadas com sucesso!');
         } else {
           this.notificationService.showError('Erro ao carregar as categorias');
         }
