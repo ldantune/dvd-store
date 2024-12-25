@@ -6,17 +6,16 @@ import { RouterModule } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
-  selector: 'app-menu',
-  standalone: true,
-  imports: [
-    RouterModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatGridListModule,
-  ],
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+    selector: 'app-menu',
+    imports: [
+        RouterModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatIconModule,
+        MatGridListModule,
+    ],
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
 

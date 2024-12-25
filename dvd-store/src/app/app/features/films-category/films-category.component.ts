@@ -8,11 +8,10 @@ import { MatCardModule } from '@angular/material/card';
 import { HeaderTitleService } from '../../core/services/header-title.service';
 
 @Component({
-  selector: 'app-films-category',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule],
-  templateUrl: './films-category.component.html',
-  styleUrls: ['./films-category.component.css'],
+    selector: 'app-films-category',
+    imports: [CommonModule, MatCardModule, MatButtonModule],
+    templateUrl: './films-category.component.html',
+    styleUrls: ['./films-category.component.css']
 })
 export class FilmsCategoryComponent implements OnInit {
   categoryId: number | null = null;

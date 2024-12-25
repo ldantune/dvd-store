@@ -6,11 +6,10 @@ import { Category } from '../core/models/Category';
 import { MatTableModule } from '@angular/material/table';
 
 @Component({
-  selector: 'app-categories',
-  standalone: true,
-  imports: [CommonModule, MatTableModule],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css',
+    selector: 'app-categories',
+    imports: [CommonModule, MatTableModule],
+    templateUrl: './categories.component.html',
+    styleUrl: './categories.component.css'
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[] = [];

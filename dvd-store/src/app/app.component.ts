@@ -6,11 +6,10 @@ import { ContentComponent } from './app/shared/template/content/content.componen
 
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [FooterComponent, HeaderComponent, MenuComponent, ContentComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [FooterComponent, HeaderComponent, MenuComponent, ContentComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'dvd-store';

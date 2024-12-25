@@ -4,11 +4,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-add-category',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule ],
-  templateUrl: './add-category.component.html',
-  styleUrl: './add-category.component.css'
+    selector: 'app-add-category',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './add-category.component.html',
+    styleUrl: './add-category.component.css'
 })
 export class AddCategoryComponent implements OnInit {
   categoryForm!: FormGroup;

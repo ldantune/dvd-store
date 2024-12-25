@@ -11,17 +11,16 @@ import { CommonModule } from '@angular/common';
 import { HeaderTitleService } from '../app/core/services/header-title.service';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatListModule,
-    MatIconModule,
-  ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+    selector: 'app-home',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        MatListModule,
+        MatIconModule,
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   categories: Category[] = [];
