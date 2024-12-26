@@ -27,15 +27,27 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
 
 
     // Método para pegar todas as categorias
-    public async Task<IList<Category>> GetCategoriesAsync()
+    public async Task<(IList<Category> Categories, int TotalItems)> GetCategoriesAsync(int pageNumber, int pageSize)
     {
         var categories = new List<Category>();
+        var offset = (pageNumber - 1) * pageSize;
+        int totalItems;
+
 
         using (var connection = new NpgsqlConnection(_connectionString))
         {
             await connection.OpenAsync();
-            using (var command = new NpgsqlCommand("SELECT category_id, name, last_update FROM category", connection))
+            // Consulta para obter o total de itens
+            using (var countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM category", connection))
             {
+                totalItems = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+            }
+
+            using (var command = new NpgsqlCommand("SELECT category_id, name, last_update FROM category ORDER BY category_id LIMIT @PageSize OFFSET @Offset", connection))
+            {
+                command.Parameters.AddWithValue("@PageSize", pageSize);
+                command.Parameters.AddWithValue("@Offset", offset);
+
                 using (var reader = await command.ExecuteReaderAsync())
                 {
                     while (await reader.ReadAsync())
@@ -44,14 +56,14 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
                         {
                             CategoryId = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            LastUpdate =reader.GetDateTime(2).ToString("dd/MM/yyyy HH:mm:ss", new System.Globalization.CultureInfo("pt-BR"))
+                            LastUpdate = reader.GetDateTime(2).ToString("dd/MM/yyyy HH:mm:ss", new System.Globalization.CultureInfo("pt-BR"))
                         });
                     }
                 }
             }
         }
 
-        return categories;
+        return (categories, totalItems);
     }
 
     // Método para pegar uma categoria pelo id

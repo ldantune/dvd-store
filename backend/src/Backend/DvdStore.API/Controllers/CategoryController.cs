@@ -17,12 +17,19 @@ public class CategoryController : ControllerBase
     [ProducesResponseType(typeof(ResponseCategoriesJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> GetCategories(
-        [FromServices] IGetCategoriesUseCase useCase)
+        [FromServices] IGetCategoriesUseCase useCase,
+        [FromQuery] PaginationQuery paginationQuery)
     {
-        var response = await useCase.Execute();
+        if (paginationQuery.PageNumber <= 0 || paginationQuery.PageSize <= 0)
+        {
+            paginationQuery.PageNumber = 1;
+            paginationQuery.PageSize = 10;
+        }
+
+        var response = await useCase.Execute(paginationQuery.PageNumber, paginationQuery.PageSize);
 
         if(response.Categories.Any())
-              return Ok(response);
+            return Ok(response);
 
         return NoContent();
     }
