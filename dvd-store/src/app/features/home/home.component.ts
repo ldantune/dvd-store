@@ -7,9 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Category } from '../../core/models/Category';
-import { CategoryService } from '../../core/services/category.service';
 import { HeaderTitleService } from '../../core/services/header-title.service';
+import { CategoriaService } from '../../core/services/categoria.service';
+import { Category } from '../../core/models/Category';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   categories: Category[] = [];
 
   constructor(
-    private categoryService: CategoryService,
+    private categoriaService: CategoriaService,
     private router: Router,
     private headerTitleService: HeaderTitleService
   ) {}
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
 
   private getCategories(): void {
     this.categories = [];
-    this.categoryService.getCategories().subscribe(
+    this.categoriaService.getCategoriesHome().subscribe(
       (response: any) => {
         if (response && Array.isArray(response.categories)) {
           this.categories = response.categories;

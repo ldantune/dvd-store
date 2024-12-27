@@ -13,9 +13,9 @@ public class GetCategoriesUseCase : IGetCategoriesUseCase
         _mapper = mapper;
         _categoryRepository = categoryRepository;
     }
-    public async Task<ResponseCategoriesJson> Execute(int pageNumber, int pageSize)
+    public async Task<ResponseCategoriesJson> Execute(int pageNumber, int pageSize, bool isPaged)
     {
-        var (categories, totalItems) = await _categoryRepository.GetCategoriesAsync(pageNumber, pageSize);
+        var (categories, totalItems) = await _categoryRepository.GetCategoriesAsync(pageNumber, pageSize, isPaged);
 
         return new ResponseCategoriesJson
         {

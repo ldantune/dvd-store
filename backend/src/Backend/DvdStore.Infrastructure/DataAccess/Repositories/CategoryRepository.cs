@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using DvdStore.Domain.Entities;
 using Npgsql;
+using System.Text;
+using DvdStore.Domain.Extensions;
 
 namespace DvdStore.Infrastructure.DataAccess.Repositories;
 public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyRepository, ICategoryUpdateOnlyRepository
@@ -27,26 +29,42 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
 
 
     // Método para pegar todas as categorias
-    public async Task<(IList<Category> Categories, int TotalItems)> GetCategoriesAsync(int pageNumber, int pageSize)
+    public async Task<(IList<Category> Categories, int TotalItems)> GetCategoriesAsync(int pageNumber, int pageSize, bool isPaged = true)
     {
         var categories = new List<Category>();
-        var offset = (pageNumber - 1) * pageSize;
-        int totalItems;
-
+        int totalItems = 0;
 
         using (var connection = new NpgsqlConnection(_connectionString))
         {
             await connection.OpenAsync();
-            // Consulta para obter o total de itens
-            using (var countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM category", connection))
+
+            // Se a paginação estiver ativada, conta o total de itens
+            if (isPaged)
             {
-                totalItems = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+                using (var countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM category", connection))
+                {
+                    totalItems = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+                }
             }
 
-            using (var command = new NpgsqlCommand("SELECT category_id, name, last_update FROM category ORDER BY category_id LIMIT @PageSize OFFSET @Offset", connection))
+            var queryBuilder = new StringBuilder();
+            queryBuilder.AppendLine("SELECT category_id, name, last_update");
+            queryBuilder.AppendLine("FROM category");
+            queryBuilder.AppendLine("ORDER BY category_id");
+
+            if (isPaged)
             {
-                command.Parameters.AddWithValue("@PageSize", pageSize);
-                command.Parameters.AddWithValue("@Offset", offset);
+                queryBuilder.AppendLine("LIMIT @PageSize OFFSET @Offset");
+            }
+
+            using (var command = new NpgsqlCommand(queryBuilder.ToString(), connection))
+            {
+                if (isPaged)
+                {
+                    var offset = (pageNumber - 1) * pageSize;
+                    command.Parameters.AddWithValue("@PageSize", pageSize);
+                    command.Parameters.AddWithValue("@Offset", offset);
+                }
 
                 using (var reader = await command.ExecuteReaderAsync())
                 {
@@ -54,9 +72,9 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
                     {
                         categories.Add(new Category
                         {
-                            CategoryId = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            LastUpdate = reader.GetDateTime(2).ToString("dd/MM/yyyy HH:mm:ss", new System.Globalization.CultureInfo("pt-BR"))
+                            CategoryId = Convert.ToInt32(reader["category_id"]),
+                            Name = reader["name"].ToString(),
+                            LastUpdate =  DateHelper.ToFormattedDateTime(reader["last_update"])
                         });
                     }
                 }
@@ -65,6 +83,7 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
 
         return (categories, totalItems);
     }
+
 
     // Método para pegar uma categoria pelo id
     public async Task<Category> GetCategoryByIdAsync(int categoryId)
@@ -86,7 +105,7 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
                         {
                             CategoryId = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            LastUpdate = reader.GetDateTime(2).ToString("dd/MM/yyyy HH:mm:ss", new System.Globalization.CultureInfo("pt-BR"))
+                            LastUpdate = DateHelper.ToFormattedDateTime(reader["last_update"])
                         };
                     }
                 }
@@ -97,5 +116,5 @@ public class CategoryRepository : ICategoryRepository, ICategoryWriteOnlyReposit
     }
 
     public void Update(Category category) => _dbContext.Categories.Update(category);
-    
+
 }

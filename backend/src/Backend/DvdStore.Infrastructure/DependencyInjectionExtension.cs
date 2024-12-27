@@ -1,4 +1,5 @@
 ﻿using DvdStore.Domain.Repositories;
+using DvdStore.Domain.Repositories.Actor;
 using DvdStore.Domain.Repositories.Category;
 using DvdStore.Domain.Repositories.Film;
 using DvdStore.Infrastructure.DataAccess;
@@ -23,5 +24,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICategoryWriteOnlyRepository, CategoryRepository>();
         services.AddScoped<ICategoryUpdateOnlyRepository, CategoryRepository>();
         services.AddScoped<IFilmCategory, FilmCategoryRepository>();
+
+        services.AddScoped<IActorReadOnlyRepository, ActorRepository>();
     }
 }

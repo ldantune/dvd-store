@@ -26,7 +26,7 @@ public class CategoryController : ControllerBase
             paginationQuery.PageSize = 10;
         }
 
-        var response = await useCase.Execute(paginationQuery.PageNumber, paginationQuery.PageSize);
+        var response = await useCase.Execute(paginationQuery.PageNumber, paginationQuery.PageSize, paginationQuery.IsPaged);
 
         if(response.Categories.Any())
             return Ok(response);

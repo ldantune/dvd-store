@@ -2,16 +2,14 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { Category } from './models/Category';
+import { Category } from '../../core/models/Category';
 
 import { NotificationService } from '../../core/services/notification.service';
 import { HeaderTitleService } from '../../core/services/header-title.service';
-import { CategoriaService } from './services/categoria.service';
+import { CategoriaService } from '../../core/services/categoria.service';
 
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 import {
-  MatPaginator,
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
