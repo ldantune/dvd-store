@@ -2,6 +2,11 @@
 using DvdStore.Communication.Requests;
 using DvdStore.Communication.Responses;
 using DvdStore.Communication.Responses.Actors;
+using DvdStore.Communication.Responses.Address;
+using DvdStore.Communication.Responses.City;
+using DvdStore.Communication.Responses.Country;
+using DvdStore.Communication.Responses.Customer;
+using DvdStore.Communication.Responses.Store;
 
 namespace DvdStore.Application.Services.AutoMapper;
 public class AutoMapping : Profile
@@ -22,5 +27,10 @@ public class AutoMapping : Profile
         CreateMap<Domain.Entities.Category, ResponseCategoryJson>();
         CreateMap<Domain.Entities.MovieByCategory, ResponseMovieByCategoryJson>();
         CreateMap<Domain.Entities.Actor, ResponseActorJson>();
+        CreateMap<Domain.Entities.Country, ResponseCountryJson>();
+        CreateMap<Domain.Entities.City, ResponseCityJson>();
+        CreateMap<Domain.Entities.Address, ResponseAddressJson>();
+        CreateMap<Domain.Entities.Store, ResponseStoreJson>();
+        CreateMap<Domain.Entities.Customer, ResponseCustomerJson>();
     }
 }
