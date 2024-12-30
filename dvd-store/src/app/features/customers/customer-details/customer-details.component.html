@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-md-6">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>{{customer?.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{customer?.firstName}}</mat-card-subtitle>
+          <img mat-card-sm-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+        </mat-card-title-group>
+      </mat-card-header>
+      <!-- <mat-divider></mat-divider> -->
+
+      <div class="row" style="padding: 16px 16px 0">
+        <div class="col-md-6 mt-2">
+          <span>E-mail: {{customer?.email}}</span>
+        </div>
+        <div class="col-md-6 mt-2">
+          <span>Telefone: {{customer?.address?.phone}}</span>
+        </div>
+        <div class="mt-2">
+          <span>Endereço: {{customer?.address?.address1}}</span>
+        </div>
+        <div class="col-md-4 mt-2">
+          <span>Cidade: {{customer?.address?.city?.cityName}}</span>
+        </div>
+        <div class="col-md-4 mt-2">
+          <span>Estado: {{customer?.address?.district}}</span>
+        </div>
+        <div class="col-md-4 mt-2">
+          <span>CEP: {{customer?.address?.postalCode}}</span>
+        </div>
+
+        <div class="col-md-4 mt-2">
+          <span>País: {{customer?.address?.city?.country?.countryName}}</span>
+        </div>
+      </div>
+      <mat-card-content>
+        <!-- {{customer | json}} -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <app-rental-details [inventoryId]="selectedInventoryId!"></app-rental-details>
+    
+  </div>
+  <div class="col-md-12 mt-3">
+    <table mat-table [dataSource]="rentalsCustomer" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="rentalId">
+        <th mat-header-cell *matHeaderCellDef>Cód Aluguel</th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          {{rentalsCustomer.rentalId}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rentalDate">
+        <th mat-header-cell *matHeaderCellDef>Data Aluguel</th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          {{rentalsCustomer.rentalDate}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="inventoryId">
+        <th mat-header-cell *matHeaderCellDef>Cód Inventário</th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          {{rentalsCustomer.inventoryId}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="returnDate">
+        <th mat-header-cell *matHeaderCellDef>Retorno Aluguel</th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          {{rentalsCustomer.returnDate}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="staffId">
+        <th mat-header-cell *matHeaderCellDef>Responsável Aluguel</th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          {{rentalsCustomer.staffId}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastUpdate">
+        <th mat-header-cell *matHeaderCellDef> Atualização </th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          {{rentalsCustomer.lastUpdate}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let rentalsCustomer">
+          <!-- <button mat-flat-button color="primary" (click)="navigateToRentalDetails(rentalsCustomer.inventoryId)">
+            Ver Detalhes
+          </button> -->
+          <button mat-flat-button color="primary" (click)="navigateToRentalDetails(rentalsCustomer.inventoryId)">
+            Ver Detalhes
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+</div>

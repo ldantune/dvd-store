@@ -9,6 +9,8 @@ using DvdStore.Application.UseCases.Categories.Delete;
 using DvdStore.Application.UseCases.Films.FilmCategory;
 using DvdStore.Application.UseCases.Actors.Get;
 using DvdStore.Application.UseCases.Customers.Get;
+using DvdStore.Application.UseCases.Customers.GetByCustomerId;
+using DvdStore.Application.UseCases.Rental.Get;
 
 
 namespace DvdStore.Application;
@@ -39,5 +41,7 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IGetActorsUseCase, GetActorsUseCase>();
         services.AddScoped<IGetCustomersUseCase, GetCustomersUseCase>();
+        services.AddScoped<IGetByCustomerIdUseCase, GetByCustomerIdUseCase>();
+        services.AddScoped<IGetRentalsByCustomerIdUseCase, GetRentalsByCustomerIdUseCase>();
     }
 }

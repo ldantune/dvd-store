@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DvdStore.Application.UseCases.Customers.Get;
+using DvdStore.Application.UseCases.Customers.GetByCustomerId;
 using DvdStore.Communication.Requests;
+using DvdStore.Communication.Responses;
 using DvdStore.Communication.Responses.Customer;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,5 +31,18 @@ public class Customer : ControllerBase
 
         return NoContent();
 
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseCustomerJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+    [FromServices] IGetByCustomerIdUseCase useCase,
+    [FromRoute] int id)
+    {
+        var response = await useCase.ExecuteAsync(id);
+
+        return Ok(response);
     }
 }

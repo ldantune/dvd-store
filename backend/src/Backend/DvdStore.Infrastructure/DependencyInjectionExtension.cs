@@ -1,8 +1,12 @@
 ﻿using DvdStore.Domain.Repositories;
 using DvdStore.Domain.Repositories.Actor;
+using DvdStore.Domain.Repositories.Address;
 using DvdStore.Domain.Repositories.Category;
+using DvdStore.Domain.Repositories.City;
+using DvdStore.Domain.Repositories.Country;
 using DvdStore.Domain.Repositories.Customer;
 using DvdStore.Domain.Repositories.Film;
+using DvdStore.Domain.Repositories.Rental;
 using DvdStore.Infrastructure.DataAccess;
 using DvdStore.Infrastructure.DataAccess.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -29,5 +33,13 @@ public static class DependencyInjectionExtension
         services.AddScoped<IActorReadOnlyRepository, ActorRepository>();
 
         services.AddScoped<ICustomerReadOnlyRepository, CustomerRepository>();
+
+        services.AddScoped<IAddressReadOnlyRepository, AddressRepository>();
+        
+        services.AddScoped<ICityReadOnlyRepository, CityRepository>();
+
+        services.AddScoped<ICountryReadOnlyRepository, CountryRepository>();
+
+        services.AddScoped<IRentalReadOnlyRepository, RentalRepository>();
     }
 }

@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DvdStore.Domain.Entities;
 using DvdStore.Domain.Extensions;
 using DvdStore.Domain.Repositories.Actor;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+using System.Text;
 
 namespace DvdStore.Infrastructure.DataAccess.Repositories;
 

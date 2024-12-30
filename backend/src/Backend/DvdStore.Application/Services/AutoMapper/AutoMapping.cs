@@ -6,6 +6,8 @@ using DvdStore.Communication.Responses.Address;
 using DvdStore.Communication.Responses.City;
 using DvdStore.Communication.Responses.Country;
 using DvdStore.Communication.Responses.Customer;
+using DvdStore.Communication.Responses.Inventory;
+using DvdStore.Communication.Responses.Rental;
 using DvdStore.Communication.Responses.Store;
 
 namespace DvdStore.Application.Services.AutoMapper;
@@ -32,5 +34,7 @@ public class AutoMapping : Profile
         CreateMap<Domain.Entities.Address, ResponseAddressJson>();
         CreateMap<Domain.Entities.Store, ResponseStoreJson>();
         CreateMap<Domain.Entities.Customer, ResponseCustomerJson>();
+        CreateMap<Domain.Entities.Inventory, ResponseInventoryJson>();
+        CreateMap<Domain.Entities.Rental, ResponseRentalJson>();
     }
 }

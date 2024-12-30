@@ -15,8 +15,10 @@ public class CustomerRepository : ICustomerReadOnlyRepository
     public CustomerRepository(DvdStoreDbContext context, IConfiguration configuration)
     {
         _dbContext = context;
-         _connectionString = configuration.GetConnectionString("DefaultConnection")!;
+        _connectionString = configuration.GetConnectionString("DefaultConnection")!;
     }
+
+
 
     public async Task<(IList<Customer> Customers, int TotalItems)> GetCustomersAsync(int pageNumber, int pageSize)
     {
@@ -52,16 +54,16 @@ public class CustomerRepository : ICustomerReadOnlyRepository
                     {
                         customers.Add(new Customer
                         {
-                            CustomerId =  Convert.ToInt32(reader["customer_id"]),
-                            StoreId =  Convert.ToInt32(reader["store_id"]),
-                            FirstName =  reader["first_name"].ToString(),
-                            LastName =  reader["last_name"].ToString(),
-                            Email =  reader["email"].ToString(),
+                            CustomerId = Convert.ToInt32(reader["customer_id"]),
+                            StoreId = Convert.ToInt32(reader["store_id"]),
+                            FirstName = reader["first_name"].ToString(),
+                            LastName = reader["last_name"].ToString(),
+                            Email = reader["email"].ToString(),
                             AddressId = Convert.ToInt32(reader["address_id"]),
                             Activebool = Convert.ToBoolean(reader["activebool"]),
                             CreateDate = DateHelper.ToFormattedDate(reader["last_update"]),
                             LastUpdate = DateHelper.ToFormattedDateTime(reader["last_update"]),
-                            Active =  Convert.ToInt32(reader["active"])
+                            Active = Convert.ToInt32(reader["active"])
                         });
                     }
                 }
@@ -69,5 +71,47 @@ public class CustomerRepository : ICustomerReadOnlyRepository
         }
 
         return (customers, totalItems);
+    }
+
+    public async Task<Customer> GetCustomerByIdAsync(int customerId)
+    {
+        Customer customer = null!;
+
+        using (var connection = new NpgsqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+
+            var queryBuilder = new StringBuilder();
+            queryBuilder.AppendLine("SELECT customer_id, store_id, first_name, last_name, email, address_id, activebool, ");
+            queryBuilder.AppendLine("create_date, last_update, active ");
+            queryBuilder.AppendLine("FROM customer");
+            queryBuilder.AppendLine("WHERE customer_id = @CustomerId");
+
+            using (var command = new NpgsqlCommand(queryBuilder.ToString(), connection))
+            {
+                command.Parameters.AddWithValue("@CustomerId", customerId);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        customer = new Customer
+                        {
+                            CustomerId = Convert.ToInt32(reader["customer_id"]),
+                            StoreId = Convert.ToInt32(reader["store_id"]),
+                            FirstName = reader["first_name"].ToString(),
+                            LastName = reader["last_name"].ToString(),
+                            Email = reader["email"].ToString(),
+                            AddressId = Convert.ToInt32(reader["address_id"]),
+                            Activebool = Convert.ToBoolean(reader["activebool"]),
+                            CreateDate = DateHelper.ToFormattedDate(reader["last_update"]),
+                            LastUpdate = DateHelper.ToFormattedDateTime(reader["last_update"]),
+                            Active = Convert.ToInt32(reader["active"])
+                        };
+                    }
+                }
+            }
+        }
+        return customer;
     }
 }
