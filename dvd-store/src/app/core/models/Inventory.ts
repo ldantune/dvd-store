@@ -1,3 +1,4 @@
+import { Film } from "./Film";
 import { Store } from "./Store";
 
 export interface Inventory {
@@ -6,4 +7,5 @@ export interface Inventory {
     storeId: number;
     store: Store;
     lastUpdate: string;
+    film: Film;
 }

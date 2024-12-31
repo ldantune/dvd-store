@@ -1,4 +1,22 @@
-<p *ngIf="inventoryId">
-  rental-details works!
-  {{inventoryId}}
-</p>
+<div *ngIf="inventoryId">
+  <div *ngIf="inventory">
+    <mat-card class="example-card" appearance="outlined" style="height: 330px !important;">
+      <mat-card-header>
+        <mat-card-title>Detalhes do Aluguel</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Nome Filme: {{inventory.film.title}}</p>
+      </mat-card-content>
+      <mat-card-footer class="example-card-footer row" style="padding: 16px !important;">
+        <div class="col-3" *ngFor="let item of parsedArray" style="padding: 16px !important;">
+          <div class="col-12">
+            <span class="row col-md-12 badge rounded-pill bg-secondary text-dark custom-chip">{{ item.word }} : {{ item.count }}</span>
+          </div>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+
+
+
+  <!-- {{inventory | json}} -->
+</div>

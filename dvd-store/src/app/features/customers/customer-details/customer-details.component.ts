@@ -22,7 +22,6 @@ import { RentalDetailsComponent } from "./rental-details/rental-details.componen
   styleUrls: ['./customer-details.component.css'],
   standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
     MatCardModule,
     MatDividerModule,
@@ -90,7 +89,6 @@ export class CustomerDetailsComponent implements OnInit {
           this.rentalsCustomer = response.rentals;
           this.totalItems = response.totalItems; // Total de itens retornado pela API
           this.currentPage = pageIndex; // Atualiza a página atual
-          console.log(this.rentalsCustomer);
         } else {
           this.notificationService.showError(
             'Rentals by customer Id not found'

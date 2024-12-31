@@ -14,7 +14,6 @@ public class FilmCategoryRepository : IFilmCategory
     private readonly string _connectionString;
     private readonly DvdStoreDbContext _dbContext;
 
-    // Injeção de dependência para pegar a connection string do arquivo de configuração
     public FilmCategoryRepository(DvdStoreDbContext context, IConfiguration configuration)
     {
         _dbContext = context;
