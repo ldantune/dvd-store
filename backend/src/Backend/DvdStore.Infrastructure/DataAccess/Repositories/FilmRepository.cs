@@ -51,7 +51,7 @@ public class FilmRepository : IFilmReadOnlyRepository
                             ReplacementCost = Convert.ToDouble(reader["replacement_cost"]),
                             Rating = reader["rating"].ToString(),
                             LastUpdate = DateHelper.ToFormattedDateTime(reader["last_update"]),
-                            SpecialFeatures = reader["special_features"].ToString(),
+                            SpecialFeatures = string.Join(", ", (string[])reader["special_features"]),
                             FullText = reader["fulltext"].ToString()
                         };
                     }

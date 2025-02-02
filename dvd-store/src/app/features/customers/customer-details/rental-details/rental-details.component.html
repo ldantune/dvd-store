@@ -1,22 +1,36 @@
 <div *ngIf="inventoryId">
   <div *ngIf="inventory">
-    <mat-card class="example-card" appearance="outlined" style="height: 330px !important;">
+    <mat-card class="example-card" appearance="outlined"
+      style="height: 330px !important; overflow-y: auto !important; overflow-x: hidden;">
       <mat-card-header>
         <mat-card-title>Detalhes do Aluguel</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>Nome Filme: {{inventory.film.title}}</p>
+        <p>Descrição: {{inventory.film.description}}</p>
+        <div class="row">
+          <span class="col-4">Preço Aluguel: {{inventory.film.rentalRate}}</span>
+          <span class="col-4">Classificação: {{inventory.film.rating}}</span>
+          <span class="col-4">Duração: {{inventory.film.length}}</span>
+          <span class="col-4">Ano Lançamento: {{inventory.film.releaseYear}}</span>
+          <span class="col-12">Características especiais: {{inventory.film.specialFeatures}}</span>
+        </div>
+
+        <!-- <p>Idioma: {{inventory.film.language.name}}</p> -->
+
       </mat-card-content>
-      <mat-card-footer class="example-card-footer row" style="padding: 16px !important;">
-        <div class="col-3" *ngFor="let item of parsedArray" style="padding: 16px !important;">
+      <div class="example-card-footer row"
+        style="margin-left: 14px !important;">
+        <div class="col-3" *ngFor="let item of parsedArray"
+          style="padding: 4px !important;">
           <div class="col-12">
-            <span class="row col-md-12 badge rounded-pill bg-secondary text-dark custom-chip">{{ item.word }} : {{ item.count }}</span>
+            <span
+              class="row col-md-12 badge rounded-pill bg-secondary text-dark custom-chip">{{
+              item.word }} : {{ item.count }}</span>
           </div>
         </div>
-      </mat-card-footer>
+      </div>
+      <!-- {{inventory.film| json}} -->
     </mat-card>
 
-
-
-  <!-- {{inventory | json}} -->
-</div>
+  </div>
